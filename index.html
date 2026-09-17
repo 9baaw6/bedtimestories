@@ -1,184 +1,1082 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kids Story Player</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Story Time!</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f4f8;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, #fff4b8 0%, transparent 30%),
+                radial-gradient(circle at top right, #c9f4ff 0%, transparent 30%),
+                linear-gradient(180deg, #eef9ff 0%, #f8f5ff 100%);
+            color: #243b53;
             user-select: none;
             -webkit-user-select: none;
+            padding-bottom: 125px;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            text-align: center;
+            padding: 28px 20px 20px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            padding: 10px 22px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(50, 70, 90, 0.10);
+        }
+
+        .logo-icon {
+            font-size: 2rem;
         }
 
         h1 {
-            color: #334e68;
-            margin-bottom: 25px;
+            margin: 0;
             font-size: 2rem;
-            text-align: center;
+            font-weight: 800;
+            color: #243b53;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 800px;
+        .subtitle {
+            margin: 14px 0 0;
+            font-size: 1.05rem;
+            color: #627d98;
         }
 
-        .character-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
-            border: 4px solid #bcccdc;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* =========================
+           CATEGORY BUTTONS
+        ========================= */
+
+        .categories {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 20px 20px;
+            justify-content: center;
+        }
+
+        .category {
+            border: none;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #486581;
+            box-shadow: 0 5px 15px rgba(50, 70, 90, 0.08);
+            white-space: nowrap;
+        }
+
+        .category.active {
+            background: #4c6fff;
+            color: white;
+        }
+
+        /* =========================
+           STORY GRID
+        ========================= */
+
+        .story-grid {
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 18px 30px;
+
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        /* =========================
+           STORY CARD
+        ========================= */
+
+        .story-card {
             position: relative;
+            background: white;
+            border-radius: 28px;
+            padding: 14px;
+            border: 5px solid transparent;
+
+            box-shadow:
+                0 10px 25px rgba(50, 70, 90, 0.10);
+
+            cursor: pointer;
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                border-color 0.18s ease;
+
+            overflow: hidden;
         }
 
-        .character-card:active {
-            transform: scale(0.95);
+        .story-card:active {
+            transform: scale(0.96);
         }
 
-        /* ⏳ Style while the file is downloading/buffering from Google Drive */
-        .character-card.loading {
-            border-color: #ecc94b; /* Yellow border */
-            background-color: #fefcbf;
-            transform: scale(1.02);
+        /* Card colors */
+
+        .story-card.bluey {
+            background: linear-gradient(145deg, #d9f5ff, #ffffff);
+            border-color: #70cfff;
         }
 
-        /* ▶️ Style when the story actually starts playing */
-        .character-card.playing {
-            border-color: #48bb78; /* Green border */
-            background-color: #f0fff4;
-            transform: scale(1.02);
-            animation: pulse 2s infinite;
+        .story-card.minions {
+            background: linear-gradient(145deg, #fff5a8, #ffffff);
+            border-color: #ffd84d;
         }
 
-        .character-card img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+        .story-card.frozen {
+            background: linear-gradient(145deg, #dff8ff, #ffffff);
+            border-color: #82d9ff;
+        }
+
+        .story-card.minecraft {
+            background: linear-gradient(145deg, #dff5d5, #ffffff);
+            border-color: #7cc576;
+        }
+
+        .story-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #e8eef3;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            margin-bottom: 12px;
+            display: block;
             pointer-events: none;
         }
 
-        .character-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #102a43;
+        /* Play button */
+
+        .play-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 68px;
+            height: 68px;
+
+            border-radius: 50%;
+            border: 4px solid white;
+
+            background: rgba(76, 111, 255, 0.94);
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+            padding-left: 4px;
+
+            box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+
+            transition: transform 0.2s ease;
+        }
+
+        .story-card:active .play-button {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        /* Story information */
+
+        .story-info {
+            padding: 12px 5px 5px;
             text-align: center;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(72, 187, 120, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0); }
+        .story-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #243b53;
+        }
+
+        .story-type {
+            font-size: 0.85rem;
+            margin-top: 3px;
+            color: #829ab1;
+        }
+
+        /* =========================
+           LOADING STATE
+        ========================= */
+
+        .story-card.loading {
+            border-color: #f6c344;
+            transform: scale(1.02);
+        }
+
+        .story-card.loading .play-button {
+            background: #f6c344;
+            animation: spinPulse 1.2s infinite;
+        }
+
+        @keyframes spinPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.12);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* =========================
+           PLAYING STATE
+        ========================= */
+
+        .story-card.playing {
+            border-color: #48bb78;
+            transform: scale(1.02);
+            box-shadow:
+                0 10px 30px rgba(72, 187, 120, 0.25);
+        }
+
+        .story-card.playing .play-button {
+            background: #48bb78;
+            padding-left: 0;
+        }
+
+        .story-card.playing .story-image::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 5px solid rgba(72, 187, 120, 0.35);
+            border-radius: 22px;
+            pointer-events: none;
+        }
+
+        /* =========================
+           BOTTOM PLAYER
+        ========================= */
+
+        .player {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+
+            border-top: 1px solid #d9e2ec;
+
+            padding: 12px 18px 16px;
+
+            box-shadow: 0 -8px 25px rgba(50,70,90,0.12);
+
+            z-index: 100;
+        }
+
+        .player-inner {
+            max-width: 1050px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .player-art {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+
+            border-radius: 15px;
+            overflow: hidden;
+
+            background: #e8eef3;
+        }
+
+        .player-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .player-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .now-playing {
+            font-size: 0.8rem;
+            color: #829ab1;
+            font-weight: 600;
+        }
+
+        .current-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #243b53;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Bottom play button */
+
+        .main-play {
+            width: 54px;
+            height: 54px;
+
+            flex-shrink: 0;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #4c6fff;
+            color: white;
+
+            font-size: 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Progress */
+
+        .progress-area {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -4px;
+
+            height: 4px;
+            background: #e5e7eb;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #4c6fff;
+            transition: width 0.1s linear;
+        }
+
+        /* =========================
+           DESKTOP
+        ========================= */
+
+        @media (min-width: 700px) {
+
+            header {
+                padding-top: 40px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .story-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+                gap: 22px;
+            }
+
+            .story-card {
+                padding: 16px;
+            }
+        }
+
+        @media (min-width: 1000px) {
+
+            .story-grid {
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            body {
+                padding-bottom: 120px;
+            }
+
+            header {
+                padding-top: 20px;
+            }
+
+            .logo {
+                padding: 8px 18px;
+            }
+
+            h1 {
+                font-size: 1.65rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .categories {
+                justify-content: flex-start;
+            }
+
+            .story-grid {
+                gap: 13px;
+                padding-left: 13px;
+                padding-right: 13px;
+            }
+
+            .story-card {
+                border-radius: 22px;
+                border-width: 4px;
+                padding: 9px;
+            }
+
+            .story-image {
+                border-radius: 16px;
+            }
+
+            .play-button {
+                width: 55px;
+                height: 55px;
+                font-size: 24px;
+            }
+
+            .story-title {
+                font-size: 1rem;
+            }
+
+            .story-type {
+                font-size: 0.75rem;
+            }
+
+            .player {
+                padding: 10px 12px 13px;
+            }
+
+            .player-art {
+                width: 48px;
+                height: 48px;
+            }
+
+            .main-play {
+                width: 48px;
+                height: 48px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Pick a Story! 📚🎵</h1>
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-    <div class="grid-container">
-        <!-- Example Character: Remember to replace YOUR_GOOGLE_DRIVE_ID -->
-        <div class="character-card" onclick="handleCardClick('audio1', this)">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9hNNy80J9HoU_YLKFSGjdIgcWfpIzG-8dcVbjf17AA&s=10 alt="Bluey">
-            <div class="character-name">Bluey</div>
-            <audio id="audio1" src="https://www.dropbox.com/scl/fi/a0t789sjtawrugi0yjdwy/BlueyBedtimeStories.mp3?rlkey=a63sp516lifzkfm4nedvefvfa&st=trsqcyl6&raw=1" controls preload="none"></audio>
-</div>
+    <header>
+
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+            <h1>Story Time!</h1>
         </div>
 
-        <div class="character-card" onclick="handleCardClick('audio2', this)">
-            <img src="elsa.jpg" alt="Minions">
-            <div class="character-name">Minions</div>
-            <audio id="audio2" src="https://google.com" preload="none"></audio>
+        <div class="subtitle">
+            Pick a story and let the adventure begin! 🎵
         </div>
+
+    </header>
+
+
+    <!-- =========================
+         CATEGORIES
+    ========================== -->
+
+    <div class="categories">
+
+        <button class="category active">
+            ⭐ All Stories
+        </button>
+
+        <button class="category">
+            🐶 Favorites
+        </button>
+
+        <button class="category">
+            🌙 Bedtime
+        </button>
+
+        <button class="category">
+            😂 Funny
+        </button>
+
     </div>
 
+
+    <!-- =========================
+         STORY CARDS
+    ========================== -->
+
+    <main class="story-grid">
+
+
+        <!-- BLUEY -->
+
+        <div class="story-card bluey"
+             onclick="handleCardClick('audio1', this)">
+
+            <div class="story-image">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9hNNy80J9HoU_YLKFSGjdIgcWfpIzG-8dcVbjf17AA&s=10"
+                    alt="Bluey">
+
+                <div class="play-button">
+                    ▶
+                </div>
+
+            </div>
+
+            <div class="story-info">
+
+                <div class="story-title">
+                    Bluey
+                </div>
+
+                <div class="story-type">
+                    🌙 Bedtime Stories
+                </div>
+
+            </div>
+
+            <audio
+                id="audio1"
+                src="https://www.dropbox.com/scl/fi/a0t789sjtawrugi0yjdwy/BlueyBedtimeStories.mp3?rlkey=a63sp516lifzkfm4nedvefvfa&st=trsqcyl6&raw=1"
+                preload="none">
+            </audio>
+
+        </div>
+
+
+        <!-- MINIONS -->
+
+        <div class="story-card minions"
+             onclick="handleCardClick('audio2', this)">
+
+            <div class="story-image">
+
+                <!-- Replace this image later -->
+                <img
+                    src="https://via.placeholder.com/500x500/FFE66D/333333?text=MINIONS"
+                    alt="Minions">
+
+                <div class="play-button">
+                    ▶
+                </div>
+
+            </div>
+
+            <div class="story-info">
+
+                <div class="story-title">
+                    Minions
+                </div>
+
+                <div class="story-type">
+                    😂 Funny Stories
+                </div>
+
+            </div>
+
+            <audio
+                id="audio2"
+                src=""
+                preload="none">
+            </audio>
+
+        </div>
+
+
+        <!-- FROZEN -->
+
+        <div class="story-card frozen"
+             onclick="handleCardClick('audio3', this)">
+
+            <div class="story-image">
+
+                <img
+                    src="https://via.placeholder.com/500x500/BDEFFF/333333?text=FROZEN"
+                    alt="Frozen">
+
+                <div class="play-button">
+                    ▶
+                </div>
+
+            </div>
+
+            <div class="story-info">
+
+                <div class="story-title">
+                    Frozen
+                </div>
+
+                <div class="story-type">
+                    ❄️ Adventure
+                </div>
+
+            </div>
+
+            <audio
+                id="audio3"
+                src=""
+                preload="none">
+            </audio>
+
+        </div>
+
+
+        <!-- MINECRAFT -->
+
+        <div class="story-card minecraft"
+             onclick="handleCardClick('audio4', this)">
+
+            <div class="story-image">
+
+                <img
+                    src="https://via.placeholder.com/500x500/7CC576/FFFFFF?text=MINECRAFT"
+                    alt="Minecraft">
+
+                <div class="play-button">
+                    ▶
+                </div>
+
+            </div>
+
+            <div class="story-info">
+
+                <div class="story-title">
+                    Minecraft
+                </div>
+
+                <div class="story-type">
+                    ⛏️ Adventures
+                </div>
+
+            </div>
+
+            <audio
+                id="audio4"
+                src=""
+                preload="none">
+            </audio>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================
+         PLAYER
+    ========================== -->
+
+    <div class="player">
+
+        <div class="progress-area">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="player-inner">
+
+            <div class="player-art">
+
+                <img
+                    id="playerImage"
+                    src="https://via.placeholder.com/100"
+                    alt="">
+
+            </div>
+
+            <div class="player-info">
+
+                <div class="now-playing">
+                    NOW PLAYING
+                </div>
+
+                <div
+                    class="current-title"
+                    id="currentTitle">
+
+                    Choose a story
+
+                </div>
+
+            </div>
+
+            <button
+                class="main-play"
+                id="mainPlay"
+                onclick="toggleCurrentAudio()">
+
+                ▶
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
     <script>
+
         let currentAudio = null;
         let currentCard = null;
 
-        function handleCardClick(audioId, cardElement) {
-            const selectedAudio = document.getElementById(audioId);
+        const progressBar =
+            document.getElementById("progressBar");
 
-            // 1. If clicking the exact story that is currently active
-            if (currentAudio === selectedAudio) {
-                if (!selectedAudio.paused) {
-                    // It is playing -> Pause it
-                    selectedAudio.pause();
-                    cardElement.classList.remove('playing', 'loading');
-                    currentAudio = null;
-                    currentCard = null;
-                } else if (cardElement.classList.contains('loading')) {
-                    // It is stuck loading -> Let the user cancel it by clicking again
-                    selectedAudio.src = selectedAudio.src; // Forces reset/stop download
-                    cardElement.classList.remove('loading');
-                    currentAudio = null;
-                    currentCard = null;
-                }
+        const currentTitle =
+            document.getElementById("currentTitle");
+
+        const playerImage =
+            document.getElementById("playerImage");
+
+        const mainPlay =
+            document.getElementById("mainPlay");
+
+
+        /*
+         * STORY DATA
+         *
+         * When you add more stories,
+         * this is where you can eventually
+         * store their names and artwork.
+         */
+
+
+        function handleCardClick(audioId, cardElement) {
+
+            const selectedAudio =
+                document.getElementById(audioId);
+
+
+            /*
+             * Don't do anything if this
+             * story doesn't have audio yet.
+             */
+
+            if (!selectedAudio.src ||
+                selectedAudio.getAttribute("src") === "") {
+
+                alert("This story isn't available yet!");
+
                 return;
             }
 
-            // 2. If a different story was playing or loading, shut it down entirely
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.src = currentAudio.src; // Resets network stream
-                if (currentCard) currentCard.classList.remove('playing', 'loading');
+
+            /*
+             * Clicking the currently playing
+             * story pauses it.
+             */
+
+            if (currentAudio === selectedAudio) {
+
+                if (!selectedAudio.paused) {
+
+                    selectedAudio.pause();
+
+                    cardElement.classList.remove(
+                        "playing",
+                        "loading"
+                    );
+
+                    mainPlay.textContent = "▶";
+
+                } else {
+
+                    selectedAudio.play();
+
+                    cardElement.classList.add("playing");
+
+                    mainPlay.textContent = "⏸";
+                }
+
+                return;
             }
 
-            // 3. Set up the new audio
+
+            /*
+             * Stop previous story.
+             */
+
+            if (currentAudio) {
+
+                currentAudio.pause();
+
+                currentAudio.currentTime = 0;
+
+                if (currentCard) {
+
+                    currentCard.classList.remove(
+                        "playing",
+                        "loading"
+                    );
+
+                    const oldButton =
+                        currentCard.querySelector(".play-button");
+
+                    if (oldButton) {
+                        oldButton.textContent = "▶";
+                    }
+                }
+            }
+
+
+            /*
+             * Set new story.
+             */
+
             currentAudio = selectedAudio;
             currentCard = cardElement;
-            
-            // Put card into loading state immediately
-            cardElement.classList.add('loading');
 
-            // Set up event listeners for this specific stream
-            
-            // Triggered when enough data has fetched to start hearing audio
-            selectedAudio.onplaying = function() {
-                cardElement.classList.remove('loading');
-                cardElement.classList.add('playing');
+
+            /*
+             * Update bottom player.
+             */
+
+            const title =
+                cardElement.querySelector(".story-title").textContent;
+
+            const image =
+                cardElement.querySelector("img").src;
+
+            currentTitle.textContent = title;
+
+            playerImage.src = image;
+
+
+            /*
+             * Show loading state.
+             */
+
+            cardElement.classList.add("loading");
+
+
+            /*
+             * Playing.
+             */
+
+            selectedAudio.onplaying = function () {
+
+                cardElement.classList.remove("loading");
+
+                cardElement.classList.add("playing");
+
+                const button =
+                    cardElement.querySelector(".play-button");
+
+                if (button) {
+                    button.textContent = "⏸";
+                }
+
+                mainPlay.textContent = "⏸";
             };
 
-            // Triggered when the story naturally finishes
-            selectedAudio.onended = function() {
-                cardElement.classList.remove('playing', 'loading');
+
+            /*
+             * Pause.
+             */
+
+            selectedAudio.onpause = function () {
+
                 if (currentAudio === selectedAudio) {
-                    currentAudio = null;
-                    currentCard = null;
+
+                    cardElement.classList.remove("playing");
+
+                    const button =
+                        cardElement.querySelector(".play-button");
+
+                    if (button) {
+                        button.textContent = "▶";
+                    }
+
+                    mainPlay.textContent = "▶";
                 }
             };
 
-            // Error failsafe (e.g. broken link or no internet)
-            selectedAudio.onerror = function() {
-                alert("Oops! Could not load this story right now.");
-                cardElement.classList.remove('playing', 'loading');
+
+            /*
+             * Progress bar.
+             */
+
+            selectedAudio.ontimeupdate = function () {
+
+                if (selectedAudio.duration) {
+
+                    const percent =
+                        (selectedAudio.currentTime /
+                        selectedAudio.duration) * 100;
+
+                    progressBar.style.width =
+                        percent + "%";
+                }
+            };
+
+
+            /*
+             * Story finished.
+             */
+
+            selectedAudio.onended = function () {
+
+                cardElement.classList.remove(
+                    "playing",
+                    "loading"
+                );
+
+                const button =
+                    cardElement.querySelector(".play-button");
+
+                if (button) {
+                    button.textContent = "▶";
+                }
+
+                progressBar.style.width = "0%";
+
+                mainPlay.textContent = "▶";
+
                 currentAudio = null;
                 currentCard = null;
             };
 
-            // Tell the browser to load and start playing
-            selectedAudio.play().catch(err => {
-                // Catches mobile browser auto-play blocks if any occur
-                console.log("Playback interrupted:", err);
+
+            /*
+             * Error handling.
+             */
+
+            selectedAudio.onerror = function () {
+
+                alert(
+                    "Oops! We couldn't load this story right now."
+                );
+
+                cardElement.classList.remove(
+                    "playing",
+                    "loading"
+                );
+
+                mainPlay.textContent = "▶";
+
+                currentAudio = null;
+                currentCard = null;
+            };
+
+
+            /*
+             * Start playback.
+             */
+
+            selectedAudio.play().catch(function(error) {
+
+                console.log(
+                    "Playback interrupted:",
+                    error
+                );
+
+                cardElement.classList.remove("loading");
+
             });
+
         }
+
+
+        /*
+         * Bottom player play/pause button.
+         */
+
+        function toggleCurrentAudio() {
+
+            if (!currentAudio) {
+                return;
+            }
+
+            if (currentAudio.paused) {
+
+                currentAudio.play();
+
+            } else {
+
+                currentAudio.pause();
+
+            }
+        }
+
+
+        /*
+         * Category buttons.
+         *
+         * Filtering can be added later.
+         */
+
+        document
+            .querySelectorAll(".category")
+            .forEach(function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        document
+                            .querySelectorAll(".category")
+                            .forEach(function(btn) {
+
+                                btn.classList.remove("active");
+
+                            });
+
+                        button.classList.add("active");
+
+                    }
+                );
+
+            });
+
     </script>
+
 </body>
 </html>
