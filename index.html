@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kids Story Player</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        h1 {
+            color: #334e68;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .character-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+            border: 4px solid #bcccdc;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        .character-card:active {
+            transform: scale(0.95);
+        }
+
+        /* ⏳ Style while the file is downloading/buffering from Google Drive */
+        .character-card.loading {
+            border-color: #ecc94b; /* Yellow border */
+            background-color: #fefcbf;
+            transform: scale(1.02);
+        }
+
+        /* ▶️ Style when the story actually starts playing */
+        .character-card.playing {
+            border-color: #48bb78; /* Green border */
+            background-color: #f0fff4;
+            transform: scale(1.02);
+            animation: pulse 2s infinite;
+        }
+
+        .character-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+            pointer-events: none;
+        }
+
+        .character-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #102a43;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(72, 187, 120, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pick a Story! 📚🎵</h1>
+
+    <div class="grid-container">
+        <!-- Example Character: Remember to replace YOUR_GOOGLE_DRIVE_ID -->
+        <div class="character-card" onclick="handleCardClick('audio1', this)">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9hNNy80J9HoU_YLKFSGjdIgcWfpIzG-8dcVbjf17AA&s=10 alt="Bluey">
+            <div class="character-name">Bluey</div>
+            <audio id="audio1" src="https://drive.google.com/file/d/13jW9emnfcjP9fEGIc2yps-bM_1MxrFpA/view?usp=drive_link" preload="none"></audio>
+        </div>
+
+        <div class="character-card" onclick="handleCardClick('audio2', this)">
+            <img src="elsa.jpg" alt="Minions">
+            <div class="character-name">Minions</div>
+            <audio id="audio2" src="https://google.com" preload="none"></audio>
+        </div>
+    </div>
+
+    <script>
+        let currentAudio = null;
+        let currentCard = null;
+
+        function handleCardClick(audioId, cardElement) {
+            const selectedAudio = document.getElementById(audioId);
+
+            // 1. If clicking the exact story that is currently active
+            if (currentAudio === selectedAudio) {
+                if (!selectedAudio.paused) {
+                    // It is playing -> Pause it
+                    selectedAudio.pause();
+                    cardElement.classList.remove('playing', 'loading');
+                    currentAudio = null;
+                    currentCard = null;
+                } else if (cardElement.classList.contains('loading')) {
+                    // It is stuck loading -> Let the user cancel it by clicking again
+                    selectedAudio.src = selectedAudio.src; // Forces reset/stop download
+                    cardElement.classList.remove('loading');
+                    currentAudio = null;
+                    currentCard = null;
+                }
+                return;
+            }
+
+            // 2. If a different story was playing or loading, shut it down entirely
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.src = currentAudio.src; // Resets network stream
+                if (currentCard) currentCard.classList.remove('playing', 'loading');
+            }
+
+            // 3. Set up the new audio
+            currentAudio = selectedAudio;
+            currentCard = cardElement;
+            
+            // Put card into loading state immediately
+            cardElement.classList.add('loading');
+
+            // Set up event listeners for this specific stream
+            
+            // Triggered when enough data has fetched to start hearing audio
+            selectedAudio.onplaying = function() {
+                cardElement.classList.remove('loading');
+                cardElement.classList.add('playing');
+            };
+
+            // Triggered when the story naturally finishes
+            selectedAudio.onended = function() {
+                cardElement.classList.remove('playing', 'loading');
+                if (currentAudio === selectedAudio) {
+                    currentAudio = null;
+                    currentCard = null;
+                }
+            };
+
+            // Error failsafe (e.g. broken link or no internet)
+            selectedAudio.onerror = function() {
+                alert("Oops! Could not load this story right now.");
+                cardElement.classList.remove('playing', 'loading');
+                currentAudio = null;
+                currentCard = null;
+            };
+
+            // Tell the browser to load and start playing
+            selectedAudio.play().catch(err => {
+                // Catches mobile browser auto-play blocks if any occur
+                console.log("Playback interrupted:", err);
+            });
+        }
+    </script>
+</body>
+</html>
