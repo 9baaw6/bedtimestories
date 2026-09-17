@@ -18,19 +18,23 @@
             margin: 0;
             min-height: 100vh;
             font-family: "Segoe UI", Arial, sans-serif;
+
             background:
                 radial-gradient(circle at top left, #fff4b8 0%, transparent 30%),
                 radial-gradient(circle at top right, #c9f4ff 0%, transparent 30%),
                 linear-gradient(180deg, #eef9ff 0%, #f8f5ff 100%);
+
             color: #243b53;
+
             user-select: none;
             -webkit-user-select: none;
-            padding-bottom: 125px;
+
+            padding-bottom: 145px;
         }
 
         /* =========================
            HEADER
-        ========================= */
+        ========================== */
 
         header {
             text-align: center;
@@ -42,10 +46,15 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+
             background: white;
+
             padding: 10px 22px;
+
             border-radius: 50px;
-            box-shadow: 0 8px 25px rgba(50, 70, 90, 0.10);
+
+            box-shadow:
+                0 8px 25px rgba(50, 70, 90, 0.10);
         }
 
         .logo-icon {
@@ -54,76 +63,109 @@
 
         h1 {
             margin: 0;
+
             font-size: 2rem;
+
             font-weight: 800;
+
             color: #243b53;
         }
 
         .subtitle {
             margin: 14px 0 0;
+
             font-size: 1.05rem;
+
             color: #627d98;
         }
 
+
         /* =========================
            CATEGORY BUTTONS
-        ========================= */
+        ========================== */
 
         .categories {
             display: flex;
+
             gap: 10px;
+
             overflow-x: auto;
+
             padding: 10px 20px 20px;
+
             justify-content: center;
         }
 
         .category {
             border: none;
+
             background: white;
+
             padding: 10px 18px;
+
             border-radius: 30px;
+
             font-size: 0.95rem;
+
             font-weight: 700;
+
             color: #486581;
-            box-shadow: 0 5px 15px rgba(50, 70, 90, 0.08);
+
+            box-shadow:
+                0 5px 15px rgba(50, 70, 90, 0.08);
+
             white-space: nowrap;
         }
 
         .category.active {
             background: #4c6fff;
+
             color: white;
         }
 
+
         /* =========================
            STORY GRID
-        ========================= */
+        ========================== */
 
         .story-grid {
             width: 100%;
+
             max-width: 1050px;
+
             margin: 0 auto;
+
             padding: 0 18px 30px;
 
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
             gap: 18px;
         }
 
+
         /* =========================
            STORY CARD
-        ========================= */
+        ========================== */
 
         .story-card {
             position: relative;
+
             background: white;
+
             border-radius: 28px;
+
             padding: 14px;
+
             border: 5px solid transparent;
 
             box-shadow:
                 0 10px 25px rgba(50, 70, 90, 0.10);
 
             cursor: pointer;
+
             transition:
                 transform 0.18s ease,
                 box-shadow 0.18s ease,
@@ -136,187 +178,276 @@
             transform: scale(0.96);
         }
 
+
         /* Card colors */
 
         .story-card.bluey {
-            background: linear-gradient(145deg, #d9f5ff, #ffffff);
+            background:
+                linear-gradient(145deg, #d9f5ff, #ffffff);
+
             border-color: #70cfff;
         }
 
         .story-card.minions {
-            background: linear-gradient(145deg, #fff5a8, #ffffff);
+            background:
+                linear-gradient(145deg, #fff5a8, #ffffff);
+
             border-color: #ffd84d;
         }
 
         .story-card.frozen {
-            background: linear-gradient(145deg, #dff8ff, #ffffff);
+            background:
+                linear-gradient(145deg, #dff8ff, #ffffff);
+
             border-color: #82d9ff;
         }
 
         .story-card.minecraft {
-            background: linear-gradient(145deg, #dff5d5, #ffffff);
+            background:
+                linear-gradient(145deg, #dff5d5, #ffffff);
+
             border-color: #7cc576;
         }
 
+
+        /* =========================
+           STORY IMAGE
+        ========================== */
+
         .story-image {
             position: relative;
+
             width: 100%;
+
             aspect-ratio: 1 / 1;
+
             border-radius: 22px;
+
             overflow: hidden;
+
             background: #e8eef3;
         }
 
         .story-image img {
             width: 100%;
+
             height: 100%;
+
             object-fit: cover;
+
             display: block;
+
             pointer-events: none;
         }
 
-        /* Play button */
+
+        /* =========================
+           CARD PLAY BUTTON
+        ========================== */
 
         .play-button {
             position: absolute;
+
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%);
+
+            transform:
+                translate(-50%, -50%);
 
             width: 68px;
             height: 68px;
 
             border-radius: 50%;
+
             border: 4px solid white;
 
-            background: rgba(76, 111, 255, 0.94);
+            background:
+                rgba(76, 111, 255, 0.94);
+
             color: white;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             font-size: 30px;
+
             padding-left: 4px;
 
-            box-shadow: 0 6px 18px rgba(0,0,0,0.22);
-
-            transition: transform 0.2s ease;
+            box-shadow:
+                0 6px 18px rgba(0,0,0,0.22);
         }
 
-        .story-card:active .play-button {
-            transform: translate(-50%, -50%) scale(0.9);
-        }
 
-        /* Story information */
+        /* =========================
+           STORY INFORMATION
+        ========================== */
 
         .story-info {
             padding: 12px 5px 5px;
+
             text-align: center;
         }
 
         .story-title {
             font-size: 1.15rem;
+
             font-weight: 800;
+
             color: #243b53;
         }
 
         .story-type {
             font-size: 0.85rem;
+
             margin-top: 3px;
+
             color: #829ab1;
         }
 
+
         /* =========================
-           LOADING STATE
-        ========================= */
+           LOADING
+        ========================== */
 
         .story-card.loading {
             border-color: #f6c344;
+
             transform: scale(1.02);
         }
 
         .story-card.loading .play-button {
             background: #f6c344;
-            animation: spinPulse 1.2s infinite;
+
+            animation:
+                spinPulse 1.2s infinite;
         }
 
         @keyframes spinPulse {
+
             0% {
-                transform: translate(-50%, -50%) scale(1);
+                transform:
+                    translate(-50%, -50%) scale(1);
             }
 
             50% {
-                transform: translate(-50%, -50%) scale(1.12);
+                transform:
+                    translate(-50%, -50%) scale(1.12);
             }
 
             100% {
-                transform: translate(-50%, -50%) scale(1);
+                transform:
+                    translate(-50%, -50%) scale(1);
             }
         }
 
+
         /* =========================
-           PLAYING STATE
-        ========================= */
+           PLAYING
+        ========================== */
 
         .story-card.playing {
             border-color: #48bb78;
+
             transform: scale(1.02);
+
             box-shadow:
                 0 10px 30px rgba(72, 187, 120, 0.25);
         }
 
         .story-card.playing .play-button {
             background: #48bb78;
+
             padding-left: 0;
         }
 
-        .story-card.playing .story-image::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border: 5px solid rgba(72, 187, 120, 0.35);
-            border-radius: 22px;
-            pointer-events: none;
-        }
 
         /* =========================
            BOTTOM PLAYER
-        ========================= */
+        ========================== */
 
         .player {
             position: fixed;
+
             left: 0;
             right: 0;
             bottom: 0;
 
-            background: rgba(255,255,255,0.97);
+            background:
+                rgba(255,255,255,0.97);
+
             backdrop-filter: blur(12px);
 
-            border-top: 1px solid #d9e2ec;
+            border-top:
+                1px solid #d9e2ec;
 
-            padding: 12px 18px 16px;
+            padding:
+                14px 18px 16px;
 
-            box-shadow: 0 -8px 25px rgba(50,70,90,0.12);
+            box-shadow:
+                0 -8px 25px rgba(50,70,90,0.12);
 
             z-index: 100;
         }
 
         .player-inner {
             max-width: 1050px;
+
             margin: auto;
 
             display: flex;
+
             align-items: center;
-            gap: 14px;
+
+            gap: 12px;
         }
+
+
+        /* =========================
+           PROGRESS BAR
+        ========================== */
+
+        .progress-area {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+
+            top: -5px;
+
+            height: 5px;
+
+            background: #e5e7eb;
+
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            width: 0%;
+
+            background: #4c6fff;
+
+            transition:
+                width 0.1s linear;
+        }
+
+
+        /* =========================
+           PLAYER ART
+        ========================== */
 
         .player-art {
             width: 58px;
             height: 58px;
+
             flex-shrink: 0;
 
             border-radius: 15px;
+
             overflow: hidden;
 
             background: #e8eef3;
@@ -325,73 +456,139 @@
         .player-art img {
             width: 100%;
             height: 100%;
+
             object-fit: cover;
         }
 
+
+        /* =========================
+           PLAYER INFO
+        ========================== */
+
         .player-info {
             flex: 1;
-            min-width: 0;
+
+            min-width: 90px;
         }
 
         .now-playing {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+
             color: #829ab1;
-            font-weight: 600;
+
+            font-weight: 700;
         }
 
         .current-title {
             font-size: 1rem;
+
             font-weight: 800;
+
             color: #243b53;
 
             white-space: nowrap;
+
             overflow: hidden;
+
             text-overflow: ellipsis;
         }
 
-        /* Bottom play button */
+        .time-display {
+            font-size: 0.72rem;
+
+            color: #829ab1;
+
+            margin-top: 2px;
+        }
+
+
+        /* =========================
+           REWIND / FORWARD BUTTONS
+        ========================== */
+
+        .skip-button {
+            border: none;
+
+            background: #edf2f7;
+
+            color: #334e68;
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s ease,
+                background 0.15s ease;
+        }
+
+        .skip-button:active {
+            transform: scale(0.88);
+
+            background: #d9e2ec;
+        }
+
+        .skip-icon {
+            font-size: 19px;
+
+            line-height: 18px;
+        }
+
+        .skip-text {
+            font-size: 8px;
+
+            margin-top: 2px;
+        }
+
+
+        /* =========================
+           MAIN PLAY BUTTON
+        ========================== */
 
         .main-play {
-            width: 54px;
-            height: 54px;
+            width: 56px;
+            height: 56px;
 
             flex-shrink: 0;
 
             border: none;
+
             border-radius: 50%;
 
             background: #4c6fff;
+
             color: white;
 
             font-size: 24px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
+            cursor: pointer;
         }
 
-        /* Progress */
-
-        .progress-area {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: -4px;
-
-            height: 4px;
-            background: #e5e7eb;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #4c6fff;
-            transition: width 0.1s linear;
-        }
 
         /* =========================
            DESKTOP
-        ========================= */
+        ========================== */
 
         @media (min-width: 700px) {
 
@@ -406,6 +603,7 @@
             .story-grid {
                 grid-template-columns:
                     repeat(3, minmax(0, 1fr));
+
                 gap: 22px;
             }
 
@@ -413,6 +611,7 @@
                 padding: 16px;
             }
         }
+
 
         @media (min-width: 1000px) {
 
@@ -422,14 +621,15 @@
             }
         }
 
+
         /* =========================
            MOBILE
-        ========================= */
+        ========================== */
 
         @media (max-width: 500px) {
 
             body {
-                padding-bottom: 120px;
+                padding-bottom: 125px;
             }
 
             header {
@@ -454,13 +654,16 @@
 
             .story-grid {
                 gap: 13px;
+
                 padding-left: 13px;
                 padding-right: 13px;
             }
 
             .story-card {
                 border-radius: 22px;
+
                 border-width: 4px;
+
                 padding: 9px;
             }
 
@@ -471,6 +674,7 @@
             .play-button {
                 width: 55px;
                 height: 55px;
+
                 font-size: 24px;
             }
 
@@ -483,23 +687,42 @@
             }
 
             .player {
-                padding: 10px 12px 13px;
+                padding:
+                    10px 10px 13px;
+            }
+
+            .player-inner {
+                gap: 7px;
             }
 
             .player-art {
-                width: 48px;
-                height: 48px;
+                width: 46px;
+                height: 46px;
+
+                border-radius: 12px;
+            }
+
+            .skip-button {
+                width: 46px;
+                height: 46px;
             }
 
             .main-play {
                 width: 48px;
                 height: 48px;
             }
+
+            .current-title {
+                font-size: 0.9rem;
+            }
         }
+
     </style>
 </head>
 
+
 <body>
+
 
     <!-- =========================
          HEADER
@@ -508,8 +731,15 @@
     <header>
 
         <div class="logo">
-            <div class="logo-icon">📚</div>
-            <h1>Story Time!</h1>
+
+            <div class="logo-icon">
+                📚
+            </div>
+
+            <h1>
+                Story Time!
+            </h1>
+
         </div>
 
         <div class="subtitle">
@@ -545,7 +775,7 @@
 
 
     <!-- =========================
-         STORY CARDS
+         STORY GRID
     ========================== -->
 
     <main class="story-grid">
@@ -553,14 +783,17 @@
 
         <!-- BLUEY -->
 
-        <div class="story-card bluey"
-             onclick="handleCardClick('audio1', this)">
+        <div
+            class="story-card bluey"
+            onclick="handleCardClick('audio1', this)"
+        >
 
             <div class="story-image">
 
                 <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9hNNy80J9HoU_YLKFSGjdIgcWfpIzG-8dcVbjf17AA&s=10"
-                    alt="Bluey">
+                    alt="Bluey"
+                >
 
                 <div class="play-button">
                     ▶
@@ -583,23 +816,25 @@
             <audio
                 id="audio1"
                 src="https://www.dropbox.com/scl/fi/a0t789sjtawrugi0yjdwy/BlueyBedtimeStories.mp3?rlkey=a63sp516lifzkfm4nedvefvfa&st=trsqcyl6&raw=1"
-                preload="none">
-            </audio>
+                preload="none"
+            ></audio>
 
         </div>
 
 
         <!-- MINIONS -->
 
-        <div class="story-card minions"
-             onclick="handleCardClick('audio2', this)">
+        <div
+            class="story-card minions"
+            onclick="handleCardClick('audio2', this)"
+        >
 
             <div class="story-image">
 
-                <!-- Replace this image later -->
                 <img
                     src="https://via.placeholder.com/500x500/FFE66D/333333?text=MINIONS"
-                    alt="Minions">
+                    alt="Minions"
+                >
 
                 <div class="play-button">
                     ▶
@@ -622,22 +857,25 @@
             <audio
                 id="audio2"
                 src=""
-                preload="none">
-            </audio>
+                preload="none"
+            ></audio>
 
         </div>
 
 
         <!-- FROZEN -->
 
-        <div class="story-card frozen"
-             onclick="handleCardClick('audio3', this)">
+        <div
+            class="story-card frozen"
+            onclick="handleCardClick('audio3', this)"
+        >
 
             <div class="story-image">
 
                 <img
                     src="https://via.placeholder.com/500x500/BDEFFF/333333?text=FROZEN"
-                    alt="Frozen">
+                    alt="Frozen"
+                >
 
                 <div class="play-button">
                     ▶
@@ -660,22 +898,25 @@
             <audio
                 id="audio3"
                 src=""
-                preload="none">
-            </audio>
+                preload="none"
+            ></audio>
 
         </div>
 
 
         <!-- MINECRAFT -->
 
-        <div class="story-card minecraft"
-             onclick="handleCardClick('audio4', this)">
+        <div
+            class="story-card minecraft"
+            onclick="handleCardClick('audio4', this)"
+        >
 
             <div class="story-image">
 
                 <img
                     src="https://via.placeholder.com/500x500/7CC576/FFFFFF?text=MINECRAFT"
-                    alt="Minecraft">
+                    alt="Minecraft"
+                >
 
                 <div class="play-button">
                     ▶
@@ -698,35 +939,54 @@
             <audio
                 id="audio4"
                 src=""
-                preload="none">
-            </audio>
+                preload="none"
+            ></audio>
 
         </div>
-
 
     </main>
 
 
     <!-- =========================
-         PLAYER
+         BOTTOM PLAYER
     ========================== -->
 
     <div class="player">
 
-        <div class="progress-area">
-            <div class="progress-bar" id="progressBar"></div>
+
+        <!-- CLICKABLE PROGRESS BAR -->
+
+        <div
+            class="progress-area"
+            id="progressArea"
+            onclick="seekAudio(event)"
+        >
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
         </div>
 
+
         <div class="player-inner">
+
+
+            <!-- ARTWORK -->
 
             <div class="player-art">
 
                 <img
                     id="playerImage"
                     src="https://via.placeholder.com/100"
-                    alt="">
+                    alt=""
+                >
 
             </div>
+
+
+            <!-- STORY INFO -->
 
             <div class="player-info">
 
@@ -736,22 +996,69 @@
 
                 <div
                     class="current-title"
-                    id="currentTitle">
-
+                    id="currentTitle"
+                >
                     Choose a story
+                </div>
 
+                <div
+                    class="time-display"
+                    id="timeDisplay"
+                >
+                    0:00 / 0:00
                 </div>
 
             </div>
 
+
+            <!-- REWIND -->
+
+            <button
+                class="skip-button"
+                onclick="skipBackward(event)"
+                aria-label="Rewind 15 seconds"
+            >
+
+                <div class="skip-icon">
+                    ↶
+                </div>
+
+                <div class="skip-text">
+                    15 SEC
+                </div>
+
+            </button>
+
+
+            <!-- PLAY / PAUSE -->
+
             <button
                 class="main-play"
                 id="mainPlay"
-                onclick="toggleCurrentAudio()">
-
+                onclick="toggleCurrentAudio()"
+            >
                 ▶
+            </button>
+
+
+            <!-- FAST FORWARD -->
+
+            <button
+                class="skip-button"
+                onclick="skipForward(event)"
+                aria-label="Forward 15 seconds"
+            >
+
+                <div class="skip-icon">
+                    ↷
+                </div>
+
+                <div class="skip-text">
+                    15 SEC
+                </div>
 
             </button>
+
 
         </div>
 
@@ -765,10 +1072,15 @@
     <script>
 
         let currentAudio = null;
+
         let currentCard = null;
+
 
         const progressBar =
             document.getElementById("progressBar");
+
+        const progressArea =
+            document.getElementById("progressArea");
 
         const currentTitle =
             document.getElementById("currentTitle");
@@ -779,61 +1091,84 @@
         const mainPlay =
             document.getElementById("mainPlay");
 
-
-        /*
-         * STORY DATA
-         *
-         * When you add more stories,
-         * this is where you can eventually
-         * store their names and artwork.
-         */
+        const timeDisplay =
+            document.getElementById("timeDisplay");
 
 
-        function handleCardClick(audioId, cardElement) {
+        /* =========================
+           FORMAT TIME
+        ========================== */
+
+        function formatTime(seconds) {
+
+            if (!isFinite(seconds)) {
+                return "0:00";
+            }
+
+            seconds = Math.floor(seconds);
+
+            const minutes =
+                Math.floor(seconds / 60);
+
+            const remainingSeconds =
+                seconds % 60;
+
+            return (
+                minutes +
+                ":" +
+                String(remainingSeconds).padStart(2, "0")
+            );
+        }
+
+
+        /* =========================
+           PLAY STORY
+        ========================== */
+
+        function handleCardClick(
+            audioId,
+            cardElement
+        ) {
 
             const selectedAudio =
                 document.getElementById(audioId);
 
 
             /*
-             * Don't do anything if this
-             * story doesn't have audio yet.
+             * Story has no audio yet.
              */
 
-            if (!selectedAudio.src ||
-                selectedAudio.getAttribute("src") === "") {
+            if (
+                !selectedAudio.src ||
+                selectedAudio.getAttribute("src") === ""
+            ) {
 
-                alert("This story isn't available yet!");
+                alert(
+                    "This story isn't available yet!"
+                );
 
                 return;
             }
 
 
             /*
-             * Clicking the currently playing
-             * story pauses it.
+             * SAME STORY
              */
 
-            if (currentAudio === selectedAudio) {
+            if (
+                currentAudio === selectedAudio
+            ) {
 
-                if (!selectedAudio.paused) {
+                if (
+                    !selectedAudio.paused
+                ) {
 
                     selectedAudio.pause();
-
-                    cardElement.classList.remove(
-                        "playing",
-                        "loading"
-                    );
-
-                    mainPlay.textContent = "▶";
 
                 } else {
 
                     selectedAudio.play();
 
-                    cardElement.classList.add("playing");
-
-                    mainPlay.textContent = "⏸";
                 }
 
                 return;
@@ -841,7 +1176,7 @@
 
 
             /*
-             * Stop previous story.
+             * STOP OLD STORY
              */
 
             if (currentAudio) {
@@ -858,176 +1193,252 @@
                     );
 
                     const oldButton =
-                        currentCard.querySelector(".play-button");
+                        currentCard.querySelector(
+                            ".play-button"
+                        );
 
                     if (oldButton) {
-                        oldButton.textContent = "▶";
+
+                        oldButton.textContent =
+                            "▶";
                     }
                 }
             }
 
 
             /*
-             * Set new story.
+             * SET NEW STORY
              */
 
-            currentAudio = selectedAudio;
-            currentCard = cardElement;
+            currentAudio =
+                selectedAudio;
+
+            currentCard =
+                cardElement;
 
 
             /*
-             * Update bottom player.
+             * UPDATE PLAYER
              */
 
             const title =
-                cardElement.querySelector(".story-title").textContent;
+                cardElement
+                    .querySelector(
+                        ".story-title"
+                    )
+                    .textContent;
 
             const image =
-                cardElement.querySelector("img").src;
+                cardElement
+                    .querySelector("img")
+                    .src;
 
-            currentTitle.textContent = title;
+            currentTitle.textContent =
+                title;
 
-            playerImage.src = image;
-
-
-            /*
-             * Show loading state.
-             */
-
-            cardElement.classList.add("loading");
+            playerImage.src =
+                image;
 
 
-            /*
-             * Playing.
-             */
+            progressBar.style.width =
+                "0%";
 
-            selectedAudio.onplaying = function () {
-
-                cardElement.classList.remove("loading");
-
-                cardElement.classList.add("playing");
-
-                const button =
-                    cardElement.querySelector(".play-button");
-
-                if (button) {
-                    button.textContent = "⏸";
-                }
-
-                mainPlay.textContent = "⏸";
-            };
+            timeDisplay.textContent =
+                "0:00 / 0:00";
 
 
             /*
-             * Pause.
+             * LOADING
              */
 
-            selectedAudio.onpause = function () {
+            cardElement.classList.add(
+                "loading"
+            );
 
-                if (currentAudio === selectedAudio) {
 
-                    cardElement.classList.remove("playing");
+            /*
+             * PLAYING
+             */
+
+            selectedAudio.onplaying =
+                function () {
+
+                    cardElement.classList.remove(
+                        "loading"
+                    );
+
+                    cardElement.classList.add(
+                        "playing"
+                    );
 
                     const button =
-                        cardElement.querySelector(".play-button");
+                        cardElement.querySelector(
+                            ".play-button"
+                        );
 
                     if (button) {
-                        button.textContent = "▶";
+
+                        button.textContent =
+                            "⏸";
                     }
 
-                    mainPlay.textContent = "▶";
-                }
-            };
+                    mainPlay.textContent =
+                        "⏸";
+                };
 
 
             /*
-             * Progress bar.
+             * PAUSED
              */
 
-            selectedAudio.ontimeupdate = function () {
+            selectedAudio.onpause =
+                function () {
 
-                if (selectedAudio.duration) {
+                    if (
+                        currentAudio ===
+                        selectedAudio
+                    ) {
 
-                    const percent =
-                        (selectedAudio.currentTime /
-                        selectedAudio.duration) * 100;
+                        cardElement.classList.remove(
+                            "playing"
+                        );
+
+                        const button =
+                            cardElement.querySelector(
+                                ".play-button"
+                            );
+
+                        if (button) {
+
+                            button.textContent =
+                                "▶";
+                        }
+
+                        mainPlay.textContent =
+                            "▶";
+                    }
+                };
+
+
+            /*
+             * TIME / PROGRESS
+             */
+
+            selectedAudio.ontimeupdate =
+                function () {
+
+                    if (
+                        selectedAudio.duration
+                    ) {
+
+                        const percent =
+                            (
+                                selectedAudio.currentTime /
+                                selectedAudio.duration
+                            ) * 100;
+
+                        progressBar.style.width =
+                            percent + "%";
+
+                        timeDisplay.textContent =
+                            formatTime(
+                                selectedAudio.currentTime
+                            )
+                            +
+                            " / "
+                            +
+                            formatTime(
+                                selectedAudio.duration
+                            );
+                    }
+                };
+
+
+            /*
+             * STORY FINISHED
+             */
+
+            selectedAudio.onended =
+                function () {
+
+                    cardElement.classList.remove(
+                        "playing",
+                        "loading"
+                    );
+
+                    const button =
+                        cardElement.querySelector(
+                            ".play-button"
+                        );
+
+                    if (button) {
+
+                        button.textContent =
+                            "▶";
+                    }
 
                     progressBar.style.width =
-                        percent + "%";
-                }
-            };
+                        "0%";
+
+                    mainPlay.textContent =
+                        "▶";
+
+                    currentAudio = null;
+
+                    currentCard = null;
+                };
 
 
             /*
-             * Story finished.
+             * ERROR
              */
 
-            selectedAudio.onended = function () {
+            selectedAudio.onerror =
+                function () {
 
-                cardElement.classList.remove(
-                    "playing",
-                    "loading"
-                );
+                    alert(
+                        "Oops! We couldn't load this story right now."
+                    );
 
-                const button =
-                    cardElement.querySelector(".play-button");
+                    cardElement.classList.remove(
+                        "playing",
+                        "loading"
+                    );
 
-                if (button) {
-                    button.textContent = "▶";
-                }
+                    mainPlay.textContent =
+                        "▶";
 
-                progressBar.style.width = "0%";
+                    currentAudio = null;
 
-                mainPlay.textContent = "▶";
-
-                currentAudio = null;
-                currentCard = null;
-            };
+                    currentCard = null;
+                };
 
 
             /*
-             * Error handling.
+             * START
              */
 
-            selectedAudio.onerror = function () {
+            selectedAudio
+                .play()
+                .catch(function(error) {
 
-                alert(
-                    "Oops! We couldn't load this story right now."
-                );
+                    console.log(
+                        "Playback interrupted:",
+                        error
+                    );
 
-                cardElement.classList.remove(
-                    "playing",
-                    "loading"
-                );
+                    cardElement.classList.remove(
+                        "loading"
+                    );
 
-                mainPlay.textContent = "▶";
-
-                currentAudio = null;
-                currentCard = null;
-            };
-
-
-            /*
-             * Start playback.
-             */
-
-            selectedAudio.play().catch(function(error) {
-
-                console.log(
-                    "Playback interrupted:",
-                    error
-                );
-
-                cardElement.classList.remove("loading");
-
-            });
+                });
 
         }
 
 
-        /*
-         * Bottom player play/pause button.
-         */
+        /* =========================
+           PLAY / PAUSE
+        ========================== */
 
         function toggleCurrentAudio() {
 
@@ -1035,23 +1446,91 @@
                 return;
             }
 
-            if (currentAudio.paused) {
+            if (
+                currentAudio.paused
+            ) {
 
                 currentAudio.play();
 
             } else {
 
                 currentAudio.pause();
-
             }
         }
 
 
-        /*
-         * Category buttons.
-         *
-         * Filtering can be added later.
-         */
+        /* =========================
+           REWIND 15 SECONDS
+        ========================== */
+
+        function skipBackward(event) {
+
+            event.stopPropagation();
+
+            if (!currentAudio) {
+                return;
+            }
+
+            currentAudio.currentTime =
+                Math.max(
+                    0,
+                    currentAudio.currentTime - 15
+                );
+        }
+
+
+        /* =========================
+           FORWARD 15 SECONDS
+        ========================== */
+
+        function skipForward(event) {
+
+            event.stopPropagation();
+
+            if (!currentAudio) {
+                return;
+            }
+
+            currentAudio.currentTime =
+                Math.min(
+                    currentAudio.duration,
+                    currentAudio.currentTime + 15
+                );
+        }
+
+
+        /* =========================
+           CLICK PROGRESS BAR
+        ========================== */
+
+        function seekAudio(event) {
+
+            if (!currentAudio) {
+                return;
+            }
+
+            if (!currentAudio.duration) {
+                return;
+            }
+
+            const rect =
+                progressArea.getBoundingClientRect();
+
+            const clickPosition =
+                event.clientX - rect.left;
+
+            const percentage =
+                clickPosition / rect.width;
+
+            currentAudio.currentTime =
+                percentage *
+                currentAudio.duration;
+        }
+
+
+        /* =========================
+           CATEGORY BUTTONS
+        ========================== */
 
         document
             .querySelectorAll(".category")
@@ -1062,14 +1541,22 @@
                     function() {
 
                         document
-                            .querySelectorAll(".category")
-                            .forEach(function(btn) {
+                            .querySelectorAll(
+                                ".category"
+                            )
+                            .forEach(
+                                function(btn) {
 
-                                btn.classList.remove("active");
+                                    btn.classList.remove(
+                                        "active"
+                                    );
 
-                            });
+                                }
+                            );
 
-                        button.classList.add("active");
+                        button.classList.add(
+                            "active"
+                        );
 
                     }
                 );
